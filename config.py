@@ -1,16 +1,16 @@
 # config.py
 import os
 
-# ================== سشن ربات ==================
-BOT_SESSION = "1AwASaW0tc2VydmVyLnNwbHVzLmlyAbuWmOga0shPQSrvzLD9hD20XnI8PfzVA6ZGOOv_KicxvPeewFEUtv2bhjdA9EFV0Oc3sYkU7I-Ft7fJazB8cH0V8njDDzQH-gTawZljzIi1Gpt-aaYsSj9GyqI-DOM5sPa1HZZ8Bk4ljRRw2GQsJ_FEZArrfO1YCggkNkLrh60ByMm8hecrFwpSvydGLEjleJ2GaCn34w2XrYpBw8yAP7J_7c1LKna_3tEpi-esgM_RclXMFwqBtkGjFywsf6UftA1mzCR0jj1LH6P9tuxEbXDd6U02_DBeOYlfey3Mpk8SoOm-pJMijqidNi_QOsLNqkFasC6o3u3iWzs403UUhWtN"
+# ================== سشن ربات (از متغیر محیطی) ==================
+BOT_SESSION = os.environ.get("BOT_SESSION", "")
 
-# ================== ادمین ==================
-ADMIN_ID = 12556420
-ADMIN_NAME = "Arshiya2"
-BOT_NAME = "میو"
-BOT_USERNAME = "MeowieeBot"
+# ================== ادمین (از متغیر محیطی) ==================
+ADMIN_ID = int(os.environ.get("ADMIN_ID", 12556420))
+ADMIN_NAME = os.environ.get("ADMIN_NAME", "Arshiya2")
+BOT_NAME = os.environ.get("BOT_NAME", "میو")
+BOT_USERNAME = os.environ.get("BOT_USERNAME", "MeowieeBot")
 
-# ================== تنظیمات ونیش (Vanity) برای ادمین ==================
+# ================== تنظیمات ونیش برای ادمین ==================
 DEVELOPER_MODE = True
 ADMIN_UNLIMITED_POINTS = 999999999
 ADMIN_EXCLUDE_FROM_LEADERBOARD = True
@@ -18,21 +18,16 @@ ADMIN_VANITY_MODE = True
 ADMIN_VANITY_MESSAGE = "👑 این کاربر **دولوپر (توسعه‌دهنده)** بازی است و از دور بازی خارج شده است.\n\n🌸 ایشون مسئول توسعه و بروزرسانی ربات میویی هستند."
 
 # ================== کانال ==================
-CHANNEL_LINK = "https://splus.ir/SoroushMew"
-CHANNEL_NAME = "Meowiee"
+CHANNEL_LINK = os.environ.get("CHANNEL_LINK", "https://splus.ir/SoroushMew")
+CHANNEL_NAME = os.environ.get("CHANNEL_NAME", "Meowiee")
 
-# ================== تنظیمات کانال اجباری ==================
-FORCE_CHANNEL_USERNAME = "Meowiee"
-FORCE_CHANNEL_NAME = "کانال رسمی میویی 🐱"
-MEMBER_CACHE_TTL = 300
+# ================== تنظیمات کانال اجباری (غیرفعال) ==================
+FORCE_CHANNEL_USERNAME = os.environ.get("FORCE_CHANNEL_USERNAME", "")  # ✅ خالی شد
+FORCE_CHANNEL_NAME = os.environ.get("FORCE_CHANNEL_NAME", "کانال رسمی میویی 🐱")
+MEMBER_CACHE_TTL = int(os.environ.get("MEMBER_CACHE_TTL", 300))
 
-FORCE_CHANNELS = [
-    {
-        "username": FORCE_CHANNEL_USERNAME,
-        "name": FORCE_CHANNEL_NAME,
-        "bio_link": "https://web.splus.ir/#-10014138684"
-    }
-]
+# ✅ لیست کانال‌های اجباری خالی
+FORCE_CHANNELS = []
 
 # ================== دیتابیس ==================
 DATABASE_FILE = os.environ.get("DATABASE_FILE", "meow.db")
