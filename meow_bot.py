@@ -22,7 +22,8 @@ from handlers.meow_handler import MeowHandler
 from handlers.fridge_handler import FridgeHandler
 from handlers.academy_handler import AcademyHandler
 
-from force_join import ForceJoinManager
+# ✅ غیرفعال کردن Force Join
+# from force_join import ForceJoinManager
 
 init_db()
 
@@ -65,7 +66,7 @@ class MeowBot:
         self.fridge_handler = FridgeHandler()
         self.academy_handler = AcademyHandler()
         
-        self.force_join = None
+        self.force_join = None  # ✅ غیرفعال
         self._join_cooldowns = {}
         self._panel_states = {}
     
@@ -105,9 +106,9 @@ class MeowBot:
             print(f"✅ کلاینت در همه هندلرها تنظیم شد!")
             print("=" * 50)
             
-            print("🔒 در حال راه‌اندازی سیستم Force Join...")
-            self.force_join = ForceJoinManager(self.client)
-            await self.force_join.start()
+            # ✅ Force Join غیرفعال
+            print("🔒 سیستم Force Join غیرفعال است!")
+            self.force_join = None
             print("=" * 50)
             
             print(f"🗑️ حذف خودکار میو: {'فعال' if AUTO_DELETE_MEOW else 'غیرفعال'}")
@@ -219,7 +220,6 @@ class MeowBot:
             import re
             text = re.sub(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', '[آی‌پی]', text)
             
-            # تشخیص پیوی
             is_private = False
             
             if isinstance(entity, int) or (isinstance(entity, str) and entity.isdigit()):
@@ -478,40 +478,10 @@ class MeowBot:
                 return
             
             # ============================================================
-            # ✅ بررسی عضویت در کانال اجباری
+            # ✅ بررسی عضویت در کانال اجباری (غیرفعال)
             # ============================================================
             
-            if not await self._is_admin(user_id):
-                if self.force_join and self.force_join.is_initialized:
-                    if text.strip() == "عضو شدم":
-                        is_member = await self.force_join.check_single_user(user_id)
-                        
-                        if is_member:
-                            await self.force_join.refresh()
-                            await self._send_message(
-                                chat_id,
-                                "🎉 **تبریک میویی!**\n\n"
-                                "✅ عضویت شما در کانال تأیید شد!\n"
-                                "🌸 حالا می‌تونی از همه امکانات ربات استفاده کنی.\n\n"
-                                "📌 برای شروع، یکی از دستورات رو بفرست:\n"
-                                "`پیشی` - `میو` - `پروفایل`",
-                                reply_to=message.id
-                            )
-                            await self._send_private_welcome(user_id)
-                        else:
-                            await self.force_join.send_missing_message(
-                                user_id, chat_id, message, self._send_message
-                            )
-                            self._set_join_cooldown(user_id)
-                        return
-                    
-                    if not self.force_join.is_member(user_id):
-                        if self._can_send_join_message(user_id):
-                            await self.force_join.send_join_message(
-                                chat_id, message, self._send_message
-                            )
-                            self._set_join_cooldown(user_id)
-                        return
+            # ✅ عضویت اجباری غیرفعال است - این بخش کاملاً حذف شده
             
             # ============================================================
             # ادامه کد قبلی برای گروه‌ها
